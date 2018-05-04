@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<link rel="stylesheet" href="./js/bootstrap.min.css"/>
+		<link rel="stylesheet" href="./js/bootstrap-select.min.css"/>
+		<link rel="stylesheet" href="./js/bootstrap-datetimepicker.min.css"/>
+		
+		
+		
+		<script type="text/javascript" src="./js/jquery-2.1.4.min.js" ></script>
+		<script type="text/javascript" src="./js/bootstrap.min.js" ></script>
+		<script type="text/javascript" src="./js/bootstrap-select.js" ></script>
+		<script type="text/javascript" src="./js/paging.js" ></script>
+		<script type="text/javascript" src="./js/moment-with-locales.min.js" ></script>
+		<script type="text/javascript" src="./js/bootstrap-datetimepicker.min.js" ></script>
+		<script type="text/javascript" src="./js/employee.js"></script>
+		<!-- <script type="text/javascript" src="./js/libs/jquery.js"></script> -->
+		<script type="text/javascript" src="./js/index.js"></script> 
+		
+		
+		<style>
+			.page_div {
+				margin-top: 20px;
+				margin-bottom: 20px;
+				font-size: 15px;
+				font-family: "microsoft yahei";
+				color: #666666;
+				margin-right: 10px;
+				padding-left: 20px;
+				box-sizing: border-box;
+			}
+			/*
+						 * 页数按钮样式
+						 */
+			.page_div a {
+				min-width: 30px;
+				height: 28px;
+				border: 1px solid #dce0e0 !important;
+				text-align: center;
+				margin: 0 4px;
+				cursor: pointer;
+				line-height: 28px;
+				color: #666666;
+				font-size: 13px;
+				display: inline-block;
+			}
+			
+			#firstPage, #lastPage {
+				width: 50px;
+				color: #0073A9;
+				border: 1px solid #0073A9 !important;
+			}
+			
+			#prePage, #nextPage {
+				width: 70px;
+				color: #0073A9;
+				border: 1px solid #0073A9 !important;
+			}
+			
+			.page_div .current {
+				background-color: #0073A9;
+				border-color: #0073A9;
+				color: #FFFFFF;
+			}
+			
+			.totalPages {
+				margin: 0 10px;
+			}
+			
+			.totalPages span, .totalSize span {
+				color: #0073A9;
+				margin: 0 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container-fluid" style="padding: 20px;">
+			<form class="form-inline">
+			  <div class="form-group">
+			    <label for="positon">在职情况</label>
+			    <select class="selectpicker">
+				  <option>在职</option>
+				  <option>离职</option>
+				</select>
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleInputName2">编号</label>
+			    <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入编号">
+			  </div>
+			  <div class="form-group">
+			    <label for="exampleInputEmail2">身份证号</label>
+			    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入身份证号">
+			  </div>
+			  <button type="submit" class="btn btn-primary">查询</button>
+			  <button type="button" class="btn btn-primary">导出</button>
+			</form>
+			<div style="margin: 20px 0;">
+				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">新增</button>
+			</div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>编号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>籍贯</th>
+						<th>出生日期</th>
+						<th>学历</th>
+						<th>身份证号</th>
+						<th>家庭住址</th>
+						<th>入职时间</th>
+						<th>部门</th>
+						<th>岗位</th>
+						<th>联系人信息</th>
+						<th>在职情况</th>
+						<th>备注</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>1</td>
+						<td>张三</td>
+						<td>男</td>
+						<td>四川</td>
+						<td>1990-01-01</td>
+						<td>本科</td>
+						<td>123123123123123123</td>
+						<td>四川成都</td>
+						<td>2018-01-01</td>
+						<td>工程部</td>
+						<td>工程师</td>
+						<td>李四</td>
+						<td>在职</td>
+						<td>无</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>张三</td>
+						<td>男</td>
+						<td>四川</td>
+						<td>1990-01-01</td>
+						<td>本科</td>
+						<td>123123123123123123</td>
+						<td>四川成都</td>
+						<td>2018-01-01</td>
+						<td>工程部</td>
+						<td>工程师</td>
+						<td>李四</td>
+						<td>在职</td>
+						<td>无</td>
+					</tr>
+				</tbody>
+			</table>
+			<div>
+				<div value="1 0"></div>
+				<div id="page" class="page_div"></div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">新增记录</h4>
+		      </div>
+		      <div class="modal-body">
+		      		<div class="form-inline">
+		      			<div class="form-group" style="margin-left: 10px;">
+						    <label>编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号</label>
+						    <input type="text" class="form-control" id="member" placeholder="请输入编号" style="width: 100px;">
+						  </div>
+						  <div class="form-group" style="margin-left: 10px;">
+						    <label>学历</label>
+						    <select id="education" class="selectpicker">
+							  <option>博士</option>
+							  <option>硕士</option>
+							  <option>本科</option>
+							  <option>大专</option>
+							  <option>大专以下</option>
+							</select>
+						  </div>
+						  <div class="form-group" style="margin-left: 10px;">
+						    <label>部门</label>
+						    <select id="department" class="selectpicker" >
+							  <option>人力资源</option>
+							  <option>PMO</option>
+							  <option>开发部</option>
+							</select>
+						  </div>
+		      		</div>
+		      		<div class="form-inline" style="margin-top: 10px;">
+		      			<div class="form-group" style="margin-left: 10px;">
+						    <label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+						    <input type="text" class="form-control" id="name" placeholder="请输入姓名" style="width: 100px;">
+						  </div>
+						  <div class="form-group" style="margin-left: 10px;">
+						    <label>入职时间</label>
+						   <div class='input-group date' id='entryDate' style="width: 150px;">  
+				                <input id='entryTime' type='text' class="form-control" />  
+				                <span class="input-group-addon">  
+				                    <span class="glyphicon glyphicon-calendar"></span>  
+				                </span>  
+				            </div>  
+						  </div>
+						  <div class="form-group" style="margin-left: 10px;">
+						    <label>岗位</label>
+						    <input type="text" class="form-control" id="post" placeholder="请输入岗位" style="width: 100px;">
+						  </div>
+		      		</div>
+		      		<div class="form-inline" style="margin-top: 10px;">
+		      			<div class="form-group" style="margin-left: 10px;">
+						    <label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+						    <input  type="text" class="form-control" id="gender" placeholder="请输入性别" style="width: 100px;">
+						  </div>
+						  <div class="form-group" style="margin-left: 10px;">
+						    <label>身份证号码</label>
+						    <input type="text" class="form-control" id="idcard" placeholder="请输入身份证号码" style="width: 250px;">
+						  </div>
+		      		</div>
+		      		<div class="form-inline" style="margin-top: 10px;">
+					  <div class="form-group" style="margin-left: 10px;">
+					    <label>出生日期</label>
+					   <div class='input-group date' id='birthday' style="width: 100px;">  
+			                <input id='birthTime' type='text' class="form-control" />  
+			                <span class="input-group-addon">  
+			                    <span class="glyphicon glyphicon-calendar"></span>  
+			                </span>  
+			            </div>  
+					  </div>
+					  <div class="form-group" style="margin-left: 10px;">
+						    <label>家庭地址</label>
+						    <input type="text" class="form-control" id="address" placeholder="请输入联系人信息" style="width: 250px;">
+						</div>
+		      		</div>
+		      		<div class="form-inline" style="margin-top: 10px;">
+					  <div class="form-group" style="margin-left: 10px;">
+					    <label>籍&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;贯</label>
+					   <input type="text" class="form-control" id="birthPlace" placeholder="请输入籍贯" style="width: 100px;">
+					  </div>
+					  <div class="form-group" style="margin-left: 10px;">
+						    <label>联系人信息</label>
+						    <input type="text" class="form-control" id="contact" placeholder="请输入联系人信息" style="width: 250px;">
+						</div>
+		      		</div>
+		      		<div class="form-inline" style="margin-top: 10px;">
+					  <div class="form-group" style="margin-left: 10px;">
+					    <label>在职情况</label>
+					   <select id="job" class="selectpicker">
+						  <option>在职</option>
+						  <option>离职</option>
+						</select>
+					  </div>
+					  <div class="form-group" style="margin-left: 10px;">
+						    <label>备注</label>
+						    <input type="text" class="form-control" id="remark" placeholder="请输入备注" style="width: 250px;">
+						</div>
+		      		</div>
+		      </div>
+		      <div class="modal-footer">
+		        <button id="close" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		        <button id="addEmployee" type="button" class="btn btn-primary">保存</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		
+	</body>
+	<script>
+		
+		$(document).ready(function () {
+			$('.selectpicker').selectpicker({
+			  style: 'btn-info',
+			  size: 4
+			});
+			
+			//分页
+			$("#page").paging({
+				pageNo:1,
+				totalPage: 10,
+				totalSize: 100,
+				callback: function(num) {
+					
+				}
+			})
+			
+			 $('#entryDate').datetimepicker({  
+		        format: 'YYYY-MM-DD',  
+        		locale: moment.locale('zh-cn')  
+		    }); 
+		    $('#birthday').datetimepicker({  
+		        format: 'YYYY-MM-DD',  
+        		locale: moment.locale('zh-cn')  
+		    }); 
+		});
+	</script>
+</html>

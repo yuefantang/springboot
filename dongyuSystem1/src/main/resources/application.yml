@@ -1,0 +1,53 @@
+spring.profiles.active: ${profile.active} 
+# 集群中的结点（影响ID生成策略）
+cluster.siteId: ${cluster.site}
+
+management:
+  security:
+    enabled: false
+    
+spring:
+  thymeleaf:
+    prefix: classpath:/static/
+    suffix: .html
+  datasource:
+     url: ${datasource.url}
+     driver-class-name: ${datasource.driver}
+     username: ${datasource.username}
+     password: ${datasource.password}
+     test-while-idle: true
+     max-wait-millis: 30000
+     validation-query: 'SELECT 1'
+     time-between-eviction-runs-millis: 20000
+     min-evictable-idle-time-millis: 28700
+     
+  jpa:
+     database-platform: ${datasource.dialect}
+     hibernate.ddl-auto: ${datasource.jpa.ddl-auto}
+     hibernate.show-sql: ${datasource.jpa.show-sql}
+     
+server:
+  port: ${server.port}
+  contextPath: ${server.contextpath}
+ 
+remain.login.times: 5  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
