@@ -75,9 +75,9 @@ $(document).ready(function(){
 		if(array[1]!=null&&array[1]!=""){
 			queryMap.s_member=array[1];
 		}
-		if(array[2]!=null&&array[2]!=""){
+		
 			queryMap.s_idcard=array[2];
-		}
+		
 		return queryMap;
   }
   

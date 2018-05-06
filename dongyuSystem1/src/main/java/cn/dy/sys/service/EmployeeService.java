@@ -7,5 +7,5 @@ import cn.dy.sys.model.employee.Employee;
 
 public interface EmployeeService {
 
-    public List<Employee> findAll(Searchable searchable, String job);
+    public List<Employee> findAll(Searchable searchable, String job, String member, String idcard);
 }

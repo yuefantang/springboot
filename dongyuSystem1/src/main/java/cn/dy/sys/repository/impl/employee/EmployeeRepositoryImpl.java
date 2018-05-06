@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -21,29 +22,21 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
 
     @Override
     public Page<Employee> findAll(final Searchable searchable, final Pageable pageable) {
-        final QEmployee employee = QEmployee.employee;
+        final QEmployee qemployee = QEmployee.employee;
         final BooleanBuilder where = new BooleanBuilder();
-        //
-        //        if (searchable.hasKey("province")) {
-        //            where.and(qCustomer.contact.province.eq(searchable.getStrValue("province")));
-        //        }
-        //
-        //        if (searchable.hasKey("city")) {
-        //            where.and(qCustomer.contact.city.eq(searchable.getStrValue("city")));
-        //        }
-        //
-        //        if (searchable.hasKey("type")) {
-        //            where.and(qCustomer.type.eq(searchable.getStrValue("type")));
-        //        }
-        //
-        //        if (searchable.hasKey("identityType")) {
-        //            where.and(qCustomer.identityType.eq(searchable.getStrValue("identityType")));
-        //        }
-        //
-        //        if (searchable.hasKey("name")) {
-        //            where.and(qCustomer.name.contains(searchable.getStrValue("name"))
-        //                    .or(qCustomer.contact.mobile.contains(searchable.getStrValue("name"))));
-        //        }
+
+        if (searchable.hasKey("job")) {
+            where.and(qemployee.employeeJob.eq(searchable.getStrValue("job")));
+        }
+
+        if (searchable.hasKey("member")) {
+            where.and(qemployee.employeeMember.eq(searchable.getStrValue("member")));
+        }
+
+        if (searchable.hasKey("idcard")) {
+            where.and(qemployee.employeeIdcard.eq(searchable.getStrValue("idcard")));
+        }
+
         //        if (searchable.hasKey("fromDate")) {
         //            final Calendar cFrom = Calendar.getInstance();
         //            cFrom.setTimeInMillis(searchable.getLongValue("fromDate"));
@@ -57,10 +50,9 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
         //        where.and(qCustomer.contact.mobile.notLike("0%"));
         //        where.and(qCustomer.contact.mobile.notLike("9%"));
         //        where.and(qCustomer.deleted.eq(false));
-        //
-        //        final Page<Customer> pageResult = this.search(where, pageable, qCustomer);
-        //        return pageResult;
-        return null;
+
+        final Page<Employee> pageResult = this.search(where, pageable, qemployee);
+        return pageResult;
 
     }
 
@@ -70,7 +62,8 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
     }
 
     @Override
-    public List<Object[]> findAllEmployee(final Searchable searchable, final String job) {
+    public List<Object[]> findAllEmployee(final Searchable searchable, final String job, final String member,
+            final String idcard) {
         final StringBuffer sql = new StringBuffer();
         sql.append(" SELECT employee_member,employee_name,employee_gender,employee_birthday, ");
         sql.append(" employee_birth_place,employee_job,employee_education,employee_entry_date, ");
@@ -88,6 +81,13 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
             sql.append(" AND employee_job='" + job + "' ");
         }
         sql.append("employee_job='" + job + "' ");
+        if (StringUtils.isNotEmpty(member)) {
+            sql.append(" AND employee_member='" + member + "' ");
+        }
+        if (StringUtils.isNotEmpty(idcard)) {
+            sql.append(" AND employee_idcard LIKE '%" + idcard + "%' ");
+        }
+
         final Query query = this.entityManager.createNativeQuery(sql.toString());
         final List<Object[]> resultList = query.getResultList();
         //        final Page<T> pageResult = new PageImpl<>(listResult, pageable, count);

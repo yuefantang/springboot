@@ -100,13 +100,16 @@ public class EmployeeController {
      * 导出
      */
     @RequestMapping(value = "/excel/download.do", method = RequestMethod.GET)
-    public ModelAndView generateExcel(@RequestParam("s_job") final String job, final Searchable searchable,
+    public ModelAndView generateExcel(@RequestParam("s_job") final String job,
+            @RequestParam("s_member") final String member,
+            @RequestParam("s_idcard") final String idcard,
+            final Searchable searchable,
             final HttpServletResponse getResponse)
             throws Exception {
         System.out.println(System.currentTimeMillis());
 
         final List<Employee> employees =
-                this.employeeService.findAll(searchable, job);
+                this.employeeService.findAll(searchable, job, member, idcard);
 
         final ModelMap modelMap = new ModelMap();
         final String strFileName = "员工查询" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xls";
