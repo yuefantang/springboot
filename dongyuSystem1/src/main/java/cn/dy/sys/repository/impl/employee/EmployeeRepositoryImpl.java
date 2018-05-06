@@ -8,8 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
+import com.mysema.query.BooleanBuilder;
+
 import cn.dy.sys.dto.common.Searchable;
 import cn.dy.sys.model.employee.Employee;
+import cn.dy.sys.model.employee.QEmployee;
 import cn.dy.sys.repository.EmployeeRepositoryEmplo;
 import cn.dy.sys.repository.common.AbstractRepository;
 
@@ -18,10 +21,8 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
 
     @Override
     public Page<Employee> findAll(final Searchable searchable, final Pageable pageable) {
-        //       QEmployee employee = QEmployee.employee;
-        //        final QCustomer qCustomer = QCustomer.customer;
-        //
-        //        final BooleanBuilder where = new BooleanBuilder();
+        final QEmployee employee = QEmployee.employee;
+        final BooleanBuilder where = new BooleanBuilder();
         //
         //        if (searchable.hasKey("province")) {
         //            where.and(qCustomer.contact.province.eq(searchable.getStrValue("province")));
@@ -69,7 +70,7 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
     }
 
     @Override
-    public List<Object[]> findAllEmployee(final Searchable searchable) {
+    public List<Object[]> findAllEmployee(final Searchable searchable, final String job) {
         final StringBuffer sql = new StringBuffer();
         sql.append(" SELECT employee_member,employee_name,employee_gender,employee_birthday, ");
         sql.append(" employee_birth_place,employee_job,employee_education,employee_entry_date, ");
@@ -84,9 +85,9 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
             sql.append(" AND employee_idcard LIKE '%" + searchable.getStrValue("idcard") + "%' ");
         }
         if (searchable.hasKey("job")) {
-            sql.append(" AND employee_job='" + searchable.getStrValue("job") + "' ");
+            sql.append(" AND employee_job='" + job + "' ");
         }
-
+        sql.append("employee_job='" + job + "' ");
         final Query query = this.entityManager.createNativeQuery(sql.toString());
         final List<Object[]> resultList = query.getResultList();
         //        final Page<T> pageResult = new PageImpl<>(listResult, pageable, count);

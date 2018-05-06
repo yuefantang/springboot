@@ -47,7 +47,7 @@ public class WebSecurityConfig
                 .httpBasic().disable()
                 .addFilterBefore(this.accountAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
-                .loginPage("/index")//登陆页面
+                .loginPage("/login_page.html")//登陆页面
                 .permitAll()
                 .and()
                 .logout()

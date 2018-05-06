@@ -1,5 +1,7 @@
 
 $(document).ready(function(){
+	
+	
   $("#addEmployee").click(function(){
 	var  employeeMember= $("#member").val();
 	var  employeeName= $("#name").val();
@@ -52,4 +54,58 @@ $(document).ready(function(){
 	    });
 	  
   });
+  
+  function createURL(url, param) {
+		var myURL = {
+			link: ''
+		};
+		for(var key in param) {
+			var link = '&' + key + "=" + param[key];
+			myURL.link += link;
+		}
+		myURL.link = url + "?" + myURL.link.substr(1);
+		return myURL.link.replace(' ', '');
+	}
+  
+  function query(array) {
+		var queryMap = {};
+		if(array[0]!=null&&array[0]!=""){
+			queryMap.s_job=array[0];
+		}
+		if(array[1]!=null&&array[1]!=""){
+			queryMap.s_member=array[1];
+		}
+		if(array[2]!=null&&array[2]!=""){
+			queryMap.s_idcard=array[2];
+		}
+		return queryMap;
+  }
+  
+  
+  $("#export").click(function(){
+	    var  job= $("#searchjob").val();
+		var  member= $("#searchmember").val();
+		var idcard= $("#searchidcard").val();  
+		
+		var searchArray=new Array();
+		searchArray[0]=job;
+		searchArray[1]=member;
+		searchArray[2]=idcard;
+		
+		var url = "/m/employee/excel/download.do";
+		
+	    var mapquery=query(searchArray);
+	    
+		var link=createURL(url, mapquery);
+		
+		  window.location.href= link;
+	  
+  });
+  
+$("#search").click(function(){
+	  
+	  
+  });
+  
+  
 });

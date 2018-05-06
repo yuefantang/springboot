@@ -81,21 +81,21 @@
 			<form class="form-inline">
 			  <div class="form-group">
 			    <label for="positon">在职情况</label>
-			    <select class="selectpicker">
+			    <select id="searchjob" class="selectpicker">
 				  <option>在职</option>
 				  <option>离职</option>
 				</select>
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputName2">编号</label>
-			    <input type="text" class="form-control" id="exampleInputName2" placeholder="请输入编号">
+			    <input type="text" class="form-control" id="searchmember" placeholder="请输入编号">
 			  </div>
 			  <div class="form-group">
 			    <label for="exampleInputEmail2">身份证号</label>
-			    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="请输入身份证号">
+			    <input type="email" class="form-control" id="searchidcard" placeholder="请输入身份证号">
 			  </div>
-			  <button type="submit" class="btn btn-primary">查询</button>
-			  <button type="button" class="btn btn-primary">导出</button>
+			  <button id="search" type="submit" class="btn btn-primary">查询</button>
+			  <button id="export" type="button" class="btn btn-primary">导出</button>
 			</form>
 			<div style="margin: 20px 0;">
 				<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">新增</button>

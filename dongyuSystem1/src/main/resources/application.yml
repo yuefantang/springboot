@@ -8,8 +8,8 @@ management:
     
 spring:
   thymeleaf:
-    prefix: classpath:/static/
-    suffix: .html
+     prefix: classpath:/excel/
+     suffix: .xls
   datasource:
      url: ${datasource.url}
      driver-class-name: ${datasource.driver}

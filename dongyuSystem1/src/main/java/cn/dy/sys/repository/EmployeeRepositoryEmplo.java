@@ -12,5 +12,5 @@ public interface EmployeeRepositoryEmplo {
 
     Page<Employee> findAll(Searchable searchable, Pageable pageable);
 
-    List<Object[]> findAllEmployee(Searchable searchable);
+    List<Object[]> findAllEmployee(Searchable searchable, String job);
 }

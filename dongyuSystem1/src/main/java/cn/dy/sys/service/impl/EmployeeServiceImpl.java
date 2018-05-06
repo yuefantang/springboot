@@ -17,8 +17,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
     @Override
-    public List<Employee> findAll(final Searchable searchable) {
-        final List<Object[]> findAllEmployee = this.employeeRepository.findAllEmployee(searchable);
+    public List<Employee> findAll(final Searchable searchable, final String job) {
+        final List<Object[]> findAllEmployee = this.employeeRepository.findAllEmployee(searchable, job);
         final List<Employee> Employees = new ArrayList<>();
         if (findAllEmployee.size() > 0) {
             for (int i = 0; i < findAllEmployee.size(); i++) {

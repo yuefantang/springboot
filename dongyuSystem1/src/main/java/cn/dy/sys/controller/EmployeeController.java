@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -99,12 +100,13 @@ public class EmployeeController {
      * 导出
      */
     @RequestMapping(value = "/excel/download.do", method = RequestMethod.GET)
-    public ModelAndView generateExcel(final Searchable searchable, final HttpServletResponse getResponse)
+    public ModelAndView generateExcel(@RequestParam("s_job") final String job, final Searchable searchable,
+            final HttpServletResponse getResponse)
             throws Exception {
         System.out.println(System.currentTimeMillis());
 
         final List<Employee> employees =
-                this.employeeService.findAll(searchable);
+                this.employeeService.findAll(searchable, job);
 
         final ModelMap modelMap = new ModelMap();
         final String strFileName = "员工查询" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xls";

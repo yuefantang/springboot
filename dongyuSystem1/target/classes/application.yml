@@ -8,8 +8,8 @@ management:
     
 spring:
   thymeleaf:
-    prefix: classpath:/static/
-    suffix: .html
+     prefix: classpath:/excel/
+     suffix: .xls
   datasource:
      url: jdbc:mysql://127.0.0.1/dys_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf-8&autoReconnect=true
      driver-class-name: com.mysql.jdbc.Driver
