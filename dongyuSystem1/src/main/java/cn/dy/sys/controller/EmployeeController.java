@@ -110,6 +110,7 @@ public class EmployeeController {
 
         final List<Employee> employees =
                 this.employeeService.findAll(searchable, job, member, idcard);
+        System.out.println(employees.size());
 
         final ModelMap modelMap = new ModelMap();
         final String strFileName = "员工查询" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".xls";

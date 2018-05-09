@@ -19,7 +19,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findAll(final Searchable searchable, final String job, final String member,
             final String idcard) {
+        System.out.println("开始查询：");
         final List<Object[]> findAllEmployee = this.employeeRepository.findAllEmployee(searchable, job, member, idcard);
+        System.out.println("查询结果2:" + findAllEmployee.size());
         final List<Employee> Employees = new ArrayList<>();
         if (findAllEmployee.size() > 0) {
             for (int i = 0; i < findAllEmployee.size(); i++) {

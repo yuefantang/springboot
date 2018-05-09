@@ -246,28 +246,28 @@
   
   
   <profiles>
-   <profile>
+  <!--    <profile>
         <id>dev</id>
         <activation>
          <activeByDefault>true</activeByDefault>
         </activation>
         <properties>
            <profile.active>dev</profile.active>
-     	        <datasource.url>jdbc:mysql://127.0.0.1/dys_db?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true</datasource.url>
+     	        <datasource.url>jdbc:mysql://127.0.0.1:3306/dys_db?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true</datasource.url>
 				<datasource.username>root</datasource.username>
 				<datasource.password>rd123456</datasource.password>
 				<datasource.jpa.ddl-auto>update</datasource.jpa.ddl-auto>
 				<datasource.jpa.show-sql>true</datasource.jpa.show-sql>
         
         </properties>
-     </profile> 
-     <!--  <profile>
-        <id>pro</id>
+     </profile> --> 
+      <profile>
+        <id>dev</id>
         <activation>
          <activeByDefault>true</activeByDefault>
         </activation>
         <properties>
-           <profile.active>pro</profile.active>
+           <profile.active>dev</profile.active>
      	        <datasource.url>jdbc:mysql://47.98.177.211:3306/dys_db?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true</datasource.url>
 				<datasource.username>root</datasource.username>
 				<datasource.password>rd1234</datasource.password>
@@ -275,7 +275,7 @@
 				<datasource.jpa.show-sql>true</datasource.jpa.show-sql>
         
         </properties>
-     </profile> -->
+     </profile>  
   </profiles>
   
 </project>

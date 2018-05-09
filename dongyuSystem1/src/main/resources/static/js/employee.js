@@ -43,7 +43,7 @@ $(document).ready(function(){
 	        async:false,
 	        contentType:"application/json", //contentType很重要
 	        success:function(msg) {  //异步请求成功执行的回调函数
-           alert("成功了: " + msg);
+           alert("保存成功了");
           $('#myModal').modal('hide');
 //	            window.location.href= "/home.html";
 //	            window.event.returnValue=false; 
@@ -72,9 +72,7 @@ $(document).ready(function(){
 		if(array[0]!=null&&array[0]!=""){
 			queryMap.s_job=array[0];
 		}
-		if(array[1]!=null&&array[1]!=""){
 			queryMap.s_member=array[1];
-		}
 		
 			queryMap.s_idcard=array[2];
 		

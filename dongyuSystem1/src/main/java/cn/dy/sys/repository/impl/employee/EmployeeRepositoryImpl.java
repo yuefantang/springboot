@@ -89,7 +89,9 @@ public class EmployeeRepositoryImpl extends AbstractRepository implements Employ
         }
 
         final Query query = this.entityManager.createNativeQuery(sql.toString());
+        System.out.println("查询语句：" + sql.toString());
         final List<Object[]> resultList = query.getResultList();
+        System.out.println("查询结果1：" + resultList.size());
         //        final Page<T> pageResult = new PageImpl<>(listResult, pageable, count);
         return resultList;
     }
